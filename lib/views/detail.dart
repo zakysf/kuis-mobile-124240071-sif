@@ -4,7 +4,7 @@ import 'package:kuis/models/data.dart';
 class DetailPage extends StatefulWidget {
   final Product product;
 
-  const DetailPage({super.key, required this.product});
+  DetailPage({super.key, required this.product});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -19,11 +19,11 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(
         title: Text(product.productName),
         actions: [
-          // FAVORITE di halaman detail
           IconButton(
-            onPressed: () => setState(() => product.isFavorite = !product.isFavorite),
+            onPressed: () =>
+                setState(() => product.isFavorite = !product.isFavorite),
             icon: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 250),
+              duration: Duration(milliseconds: 250),
               transitionBuilder: (child, anim) =>
                   ScaleTransition(scale: anim, child: child),
               child: Icon(
@@ -39,9 +39,8 @@ class _DetailPageState extends State<DetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(15.0),
             child: Center(
-              // HERO: tag HARUS sama persis dengan yang di home.dart
               child: Hero(
                 tag: "product-${product.id}",
                 child: ClipRRect(
@@ -51,23 +50,61 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
-          Text(product.productName,
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          Text(product.type,
-              style: const TextStyle(fontSize: 15, color: Colors.grey)),
-          const SizedBox(height: 20),
-          Text(product.price,
-              style: const TextStyle(
-                  color: Colors.green,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold)),
-          const SizedBox(height: 20),
-          const Text("Deskripsi: ",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 5),
+          SizedBox(height: 20),
+          Text(
+            product.productName,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            product.type,
+            style: TextStyle(fontSize: 15, color: Colors.grey),
+          ),
+          SizedBox(height: 20),
+          Text(
+            product.price,
+            style: TextStyle(
+              color: Colors.green,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "Jumlah Produk: ",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          Row(
+            children: [
+              Icon(Icons.inventory_2_outlined, size: 14),
+              SizedBox(width: 4),
+              Text('${product.stock} stok'),
+              SizedBox(width: 12),
+              Icon(Icons.favorite, size: 14, color: Colors.red),
+              SizedBox(width: 4),
+              Text(product.likeCount.toString()),
+            ],
+          ),
+
+          // Text("Disukai: ${product.likeCount}",
+          //     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+          // SizedBox(height: 10),
+          // Text("Stok: ${product.stock}",
+          //     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+          SizedBox(height: 20),
+          Text(
+            product.sizes.isNotEmpty
+                ? "Ukuran: ${product.sizes}"
+                : "Ukuran: Tidak tersedia",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "Deskripsi: ",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 5),
           Text(product.details),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
         ],
       ),
     );

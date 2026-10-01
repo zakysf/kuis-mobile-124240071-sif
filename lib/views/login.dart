@@ -55,9 +55,10 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.network("https://play-lh.googleusercontent.com/bB_cyOTbQfFmV4IaeqTIFJVc1Wm4UdQwQai8GjthG4uaXrTHNZTKsMtg9_9058GeZGLgoJzIasYYdFkSvdyQ"),
+              Image.network("https://play-lh.googleusercontent.com/bB_cyOTbQfFmV4IaeqTIFJVc1Wm4UdQwQai8GjthG4uaXrTHNZTKsMtg9_9058GeZGLgoJzIasYYdFkSvdyQ", height: 250, width: 250),
               SizedBox(height: 30),
-              Text("Selamat Datang di Gacoan"),
+              Text("Selamat Datang di Uniqlo"),
+              Text("Selamat Berbelanja"),
               SizedBox(height: 30),
               TextField(
                 controller: usernameController,

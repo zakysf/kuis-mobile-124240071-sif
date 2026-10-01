@@ -15,11 +15,10 @@ class _HomePageState extends State<HomePage> {
   String query = "";
   String selectedtype = "Semua";
 
-  // Kategori diambil otomatis dari data product
+  //Filter
   List<String> get categories =>
       ["Semua", "Favorit", ...catalog.map((p) => p.type).toSet()];
 
-  // SEARCH + FILTER: logika utamanya ada di sini
   List<Product> get filteredproducts {
     return catalog.where((p) {
       final matchSearch =
@@ -45,7 +44,6 @@ class _HomePageState extends State<HomePage> {
 
     return Column(
       children: [
-        // ===== SEARCH BAR =====
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
           child: TextField(
@@ -70,14 +68,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        // ===== FILTER KATEGORI =====
         SizedBox(
           height: 48,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             itemCount: categories.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 8),
+            separatorBuilder: (_, _) => const SizedBox(width: 8),
             itemBuilder: (context, i) {
               final cat = categories[i];
               return ChoiceChip(
@@ -89,7 +86,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        // ===== LIST product =====
+        //LIST product
         Expanded(
           child: items.isEmpty
               ? const Center(child: Text("product tidak ditemukan"))
@@ -98,7 +95,6 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     final product = items[index];
 
-                    // ANIMASI 1: item muncul dengan fade + geser naik
                     return TweenAnimationBuilder<double>(
                       key: ValueKey(product.id),
                       tween: Tween(begin: 0, end: 1),
@@ -122,13 +118,29 @@ class _HomePageState extends State<HomePage> {
                               builder: (context) => DetailPage(product: product),
                             ),
                           );
-                          // refresh, siapa tahu favorite berubah di detail
+
                           setState(() {});
                         },
                         title: Text(product.productName),
-                        subtitle: Text(product.price),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(product.price),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Icon(Icons.inventory_2_outlined, size: 14),
+                                SizedBox(width: 4),
+                                Text('${product.stock} stok'),
+                                SizedBox(width: 12),
+                                Icon(Icons.favorite, size: 14, color: Colors.red),
+                                SizedBox(width: 4),
+                                Text(product.likeCount.toString()),
+                              ],
+                            ),
+                          ],
+                        ),
 
-                        // ANIMASI 2: Hero (gambar "terbang" ke halaman detail)
                         leading: Hero(
                           tag: "product-${product.id}",
                           child: ClipRRect(
@@ -140,6 +152,7 @@ class _HomePageState extends State<HomePage> {
                               fit: BoxFit.cover,
                             ),
                           ),
+
                         ),
 
                         // FAVORITE + ANIMASI 3: ikon berubah dengan scale

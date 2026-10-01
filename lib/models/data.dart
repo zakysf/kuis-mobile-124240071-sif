@@ -11,9 +11,9 @@ class Account {
 }
 
 Account account = Account(
-  username: "adminuniqlo",
-  password: "uniqlo123",
-  displayName: "Admin UNIQLO",
+  username: "zakyi",
+  password: "071",
+  displayName: "YESS KINGGG",
 );
 
 class Product {
