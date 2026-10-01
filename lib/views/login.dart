@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
     String password = passwordController.text;
 
 
-    if (username == user1.username && password == user1.password) {
+    if (username == account.username && password == account.password) {
       setState(() {
         isLoggedIn = true;
       });

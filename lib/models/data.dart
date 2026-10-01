@@ -26,6 +26,7 @@ class Product {
   int likeCount;
   int stock;
   List<String> sizes;
+  bool isFavorite = false;
 
   Product({
     required this.id,
@@ -37,6 +38,7 @@ class Product {
     required this.likeCount,
     required this.stock,
     required this.sizes,
+    this.isFavorite = false,
   });
 }
 
